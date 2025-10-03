@@ -1,10 +1,5 @@
 # NASA-space-app-challange-2025-Cosmic-carrots-
 
-Put ideas here!!!!
-- When we present this project we are going to say that we are goign to do three levels for different group ages , one that is easy for children which will contain very little actual data but will only give a simplified overview, then a medium which is the one we are doing , and then a hard which will have a lot of data that are no at all simplified.
-
-
-
 BRIEF DESCRIPTION
 The core of this game is the Data Card system. In each round, the player draws cards that are simplified NASA data which inform the player about the conditions of his crop. Then the player spends their money interventions to react to the opportunities and threats, but keeping in mind that the game has four round so he has to budget his money.
 
@@ -40,6 +35,9 @@ After each round, a summary screen explains why the player got their score. For 
 
 
 
+
+Put ideas here!!!!
+- When we present this project we are going to say that we are goign to do three levels for different group ages , one that is easy for children which will contain very little actual data but will only give a simplified overview, then a medium which is the one we are doing , and then a hard which will have a lot of data that are no at all simplified.
 
 
 
