@@ -1,0 +1,92 @@
+{
+  "location": "Daintree Rainforest, Queensland, Australia",
+  "note": "Data represents the tropical lowland climate. Includes monthly boolean flags for drought and flood risk.",
+  "altitude_meters": 25,
+  "yearly_data": [
+    {
+      "year": 2020,
+      "monthly_data": [
+        { "month": "January", "month_number": 1, "average_temperature_celsius": 28.5, "average_rainfall_mm": 410, "average_humidity_percent": 86, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "February", "month_number": 2, "average_temperature_celsius": 28.3, "average_rainfall_mm": 450, "average_humidity_percent": 88, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "March", "month_number": 3, "average_temperature_celsius": 27.5, "average_rainfall_mm": 420, "average_humidity_percent": 87, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "April", "month_number": 4, "average_temperature_celsius": 26.2, "average_rainfall_mm": 250, "average_humidity_percent": 85, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "May", "month_number": 5, "average_temperature_celsius": 24.8, "average_rainfall_mm": 150, "average_humidity_percent": 82, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "June", "month_number": 6, "average_temperature_celsius": 23.5, "average_rainfall_mm": 90, "average_humidity_percent": 79, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "July", "month_number": 7, "average_temperature_celsius": 23.1, "average_rainfall_mm": 80, "average_humidity_percent": 78, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "August", "month_number": 8, "average_temperature_celsius": 23.8, "average_rainfall_mm": 85, "average_humidity_percent": 77, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "September", "month_number": 9, "average_temperature_celsius": 25.0, "average_rainfall_mm": 95, "average_humidity_percent": 78, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "October", "month_number": 10, "average_temperature_celsius": 26.5, "average_rainfall_mm": 120, "average_humidity_percent": 80, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "November", "month_number": 11, "average_temperature_celsius": 27.8, "average_rainfall_mm": 180, "average_humidity_percent": 82, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "December", "month_number": 12, "average_temperature_celsius": 28.4, "average_rainfall_mm": 300, "average_humidity_percent": 85, "is_drought_risk": false, "is_flood_risk": false }
+      ]
+    },
+    {
+      "year": 2021,
+      "monthly_data": [
+        { "month": "January", "month_number": 1, "average_temperature_celsius": 28.2, "average_rainfall_mm": 480, "average_humidity_percent": 88, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "February", "month_number": 2, "average_temperature_celsius": 28.0, "average_rainfall_mm": 520, "average_humidity_percent": 89, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "March", "month_number": 3, "average_temperature_celsius": 27.2, "average_rainfall_mm": 490, "average_humidity_percent": 88, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "April", "month_number": 4, "average_temperature_celsius": 26.0, "average_rainfall_mm": 300, "average_humidity_percent": 86, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "May", "month_number": 5, "average_temperature_celsius": 24.5, "average_rainfall_mm": 180, "average_humidity_percent": 83, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "June", "month_number": 6, "average_temperature_celsius": 23.2, "average_rainfall_mm": 110, "average_humidity_percent": 80, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "July", "month_number": 7, "average_temperature_celsius": 22.9, "average_rainfall_mm": 95, "average_humidity_percent": 79, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "August", "month_number": 8, "average_temperature_celsius": 23.5, "average_rainfall_mm": 100, "average_humidity_percent": 78, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "September", "month_number": 9, "average_temperature_celsius": 24.8, "average_rainfall_mm": 110, "average_humidity_percent": 79, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "October", "month_number": 10, "average_temperature_celsius": 26.2, "average_rainfall_mm": 140, "average_humidity_percent": 81, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "November", "month_number": 11, "average_temperature_celsius": 27.5, "average_rainfall_mm": 210, "average_humidity_percent": 83, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "December", "month_number": 12, "average_temperature_celsius": 28.1, "average_rainfall_mm": 350, "average_humidity_percent": 86, "is_drought_risk": false, "is_flood_risk": false }
+      ]
+    },
+    {
+      "year": 2022,
+      "monthly_data": [
+        { "month": "January", "month_number": 1, "average_temperature_celsius": 28.4, "average_rainfall_mm": 510, "average_humidity_percent": 89, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "February", "month_number": 2, "average_temperature_celsius": 28.1, "average_rainfall_mm": 550, "average_humidity_percent": 90, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "March", "month_number": 3, "average_temperature_celsius": 27.3, "average_rainfall_mm": 460, "average_humidity_percent": 89, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "April", "month_number": 4, "average_temperature_celsius": 26.1, "average_rainfall_mm": 280, "average_humidity_percent": 87, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "May", "month_number": 5, "average_temperature_celsius": 24.6, "average_rainfall_mm": 170, "average_humidity_percent": 84, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "June", "month_number": 6, "average_temperature_celsius": 23.3, "average_rainfall_mm": 100, "average_humidity_percent": 81, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "July", "month_number": 7, "average_temperature_celsius": 23.0, "average_rainfall_mm": 90, "average_humidity_percent": 80, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "August", "month_number": 8, "average_temperature_celsius": 23.6, "average_rainfall_mm": 95, "average_humidity_percent": 79, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "September", "month_number": 9, "average_temperature_celsius": 24.9, "average_rainfall_mm": 105, "average_humidity_percent": 80, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "October", "month_number": 10, "average_temperature_celsius": 26.3, "average_rainfall_mm": 130, "average_humidity_percent": 82, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "November", "month_number": 11, "average_temperature_celsius": 27.6, "average_rainfall_mm": 190, "average_humidity_percent": 84, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "December", "month_number": 12, "average_temperature_celsius": 28.3, "average_rainfall_mm": 330, "average_humidity_percent": 87, "is_drought_risk": false, "is_flood_risk": false }
+      ]
+    },
+    {
+      "year": 2023,
+      "monthly_data": [
+        { "month": "January", "month_number": 1, "average_temperature_celsius": 28.8, "average_rainfall_mm": 350, "average_humidity_percent": 85, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "February", "month_number": 2, "average_temperature_celsius": 28.6, "average_rainfall_mm": 380, "average_humidity_percent": 87, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "March", "month_number": 3, "average_temperature_celsius": 27.8, "average_rainfall_mm": 350, "average_humidity_percent": 86, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "April", "month_number": 4, "average_temperature_celsius": 26.5, "average_rainfall_mm": 210, "average_humidity_percent": 84, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "May", "month_number": 5, "average_temperature_celsius": 25.1, "average_rainfall_mm": 130, "average_humidity_percent": 81, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "June", "month_number": 6, "average_temperature_celsius": 23.8, "average_rainfall_mm": 70, "average_humidity_percent": 78, "is_drought_risk": true, "is_flood_risk": false },
+        { "month": "July", "month_number": 7, "average_temperature_celsius": 23.4, "average_rainfall_mm": 60, "average_humidity_percent": 77, "is_drought_risk": true, "is_flood_risk": false },
+        { "month": "August", "month_number": 8, "average_temperature_celsius": 24.1, "average_rainfall_mm": 65, "average_humidity_percent": 76, "is_drought_risk": true, "is_flood_risk": false },
+        { "month": "September", "month_number": 9, "average_temperature_celsius": 25.4, "average_rainfall_mm": 75, "average_humidity_percent": 77, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "October", "month_number": 10, "average_temperature_celsius": 26.9, "average_rainfall_mm": 100, "average_humidity_percent": 79, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "November", "month_number": 11, "average_temperature_celsius": 28.2, "average_rainfall_mm": 150, "average_humidity_percent": 81, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "December", "month_number": 12, "average_temperature_celsius": 28.8, "average_rainfall_mm": 250, "average_humidity_percent": 83, "is_drought_risk": false, "is_flood_risk": false }
+      ]
+    },
+    {
+      "year": 2024,
+      "monthly_data": [
+        { "month": "January", "month_number": 1, "average_temperature_celsius": 29.0, "average_rainfall_mm": 380, "average_humidity_percent": 86, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "February", "month_number": 2, "average_temperature_celsius": 28.8, "average_rainfall_mm": 420, "average_humidity_percent": 88, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "March", "month_number": 3, "average_temperature_celsius": 28.0, "average_rainfall_mm": 400, "average_humidity_percent": 87, "is_drought_risk": false, "is_flood_risk": true },
+        { "month": "April", "month_number": 4, "average_temperature_celsius": 26.8, "average_rainfall_mm": 230, "average_humidity_percent": 85, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "May", "month_number": 5, "average_temperature_celsius": 25.3, "average_rainfall_mm": 140, "average_humidity_percent": 82, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "June", "month_number": 6, "average_temperature_celsius": 24.0, "average_rainfall_mm": 80, "average_humidity_percent": 79, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "July", "month_number": 7, "average_temperature_celsius": 23.6, "average_rainfall_mm": 70, "average_humidity_percent": 78, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "August", "month_number": 8, "average_temperature_celsius": 24.3, "average_rainfall_mm": 75, "average_humidity_percent": 77, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "September", "month_number": 9, "average_temperature_celsius": 25.6, "average_rainfall_mm": 85, "average_humidity_percent": 78, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "October", "month_number": 10, "average_temperature_celsius": 27.1, "average_rainfall_mm": 110, "average_humidity_percent": 80, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "November", "month_number": 11, "average_temperature_celsius": 28.4, "average_rainfall_mm": 160, "average_humidity_percent": 82, "is_drought_risk": false, "is_flood_risk": false },
+        { "month": "December", "month_number": 12, "average_temperature_celsius": 28.9, "average_rainfall_mm": 280, "average_humidity_percent": 84, "is_drought_risk": false, "is_flood_risk": false }
+      ]
+    }
+  ]
+}
