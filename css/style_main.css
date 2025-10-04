@@ -135,6 +135,11 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
   }
 
+  .selected{
+    transform: translateY(-30px) scale(1.1) rotateZ(0deg);
+    box-shadow: 0 20px 40px red;
+  }
+
   .overlay {
     position: fixed;
     top: 0;
@@ -180,3 +185,25 @@
     transform: translateY(-10px) scale(1.05);
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.7);
   }
+
+  .next-round-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #2b8a3e;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.next-round-btn:hover {
+  background: #37b24d;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+}
