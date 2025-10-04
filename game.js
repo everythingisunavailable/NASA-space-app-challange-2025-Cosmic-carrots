@@ -16,9 +16,14 @@ function buildCropCards(crops) {
     crops.forEach((crop, index) => {
         const card = document.createElement('div');
         card.className = 'card-choice';
-        card.textContent = crop.name; // Set crop name as text
         card.setAttribute('onclick', `chooseCard(${index})`); // Add click handler
-        modal.appendChild(card);
+        
+        card.style.backgroundImage = `url('${crop.image}')`;
+        card.style.backgroundSize = 'cover';       // cover the whole card
+        card.style.backgroundPosition = 'center';  // center the image
+        card.style.backgroundRepeat = 'no-repeat';
+        
+         modal.appendChild(card);
     });
 
     // Append modal to overlay

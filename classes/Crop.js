@@ -1,11 +1,12 @@
 class Crop {
-    constructor(name, tempRange, rainfallRange, humidityRange, altitudeRange, soil, growthSpeed) {
+    constructor(name, tempRange, rainfallRange, humidityRange, altitudeRange, growthSpeed, image) {
         this.name = name;
         this.tempRange = tempRange;         // [minIdeal, maxIdeal, minTolerance, maxTolerance]
         this.rainfallRange = rainfallRange; // [minIdeal, maxIdeal, minTolerance, maxTolerance]
         this.humidityRange = humidityRange; // [minIdeal, maxIdeal, minTolerance, maxTolerance]
         this.altitudeRange = altitudeRange; // [minIdeal, maxIdeal, minTolerance, maxTolerance]
         this.growthSpeed = growthSpeed;     // duration in months
+        this.image=image;                   //image
     }
 
     // Check if a given environment is within ideal range
