@@ -16,11 +16,11 @@ function buildCropCards(crops) {
     crops.forEach((crop, index) => {
         const card = document.createElement('div');
         card.className = 'card-choice';
-        card.setAttribute('onclick', `chooseCard(${index})`); // Add click handler
+        card.setAttribute('onclick', `chooseCard(${index})`); 
         
         card.style.backgroundImage = `url('${crop.image}')`;
-        card.style.backgroundSize = 'cover';       // cover the whole card
-        card.style.backgroundPosition = 'center';  // center the image
+        card.style.backgroundSize = 'cover';       
+        card.style.backgroundPosition = 'center';  
         card.style.backgroundRepeat = 'no-repeat';
         
          modal.appendChild(card);
