@@ -137,10 +137,13 @@ function updateSingleRoundCards(newCards) {
 
         updateSingleRoundCards(hand_cards);
     }
-    
+
     function next_round()
     {
-        //TODO: handle what has happened at the last round and if the game is not over then start a new round by shuffeling the cards
+        //TODO: handle what has happened at the last round and if the game is not over then start a new round by shuffling 
+            //example take the selected cards effects and add them to the effects of the environment
+            //after this reset the selected cards array and dom
+            //see what do the effects 
         shuffle_cards();
     }
 
