@@ -85,7 +85,6 @@ body {
 
 .custom-pin:hover::before {
     background: #ef4444;
-    /* Changed from gradient to solid red for consistent color throughout the pin */
     box-shadow: 0 0px 20px rgba(250, 96, 96, 0.5), 0 0 20px rgba(251, 88, 85, 0.4);
 }
 
@@ -103,7 +102,6 @@ body {
 .leaflet-tooltip {
     background: rgba(0, 0, 0, 0.9);
     color: rgb(255, 255, 255);
-    /* Fixed text color to white (was incorrectly set to black) */
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     padding: 6px 12px;
