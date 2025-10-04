@@ -1,6 +1,7 @@
     let CROP_INDEX = 0;
     let VEGETATION_INDEX = 1;
     let AREA_INDEX = 0;
+    let selected_cards = [];
 
     function buildCropCards(crops) {
         // Create the overlay div
@@ -56,15 +57,34 @@ function updateCropCard(newCropName) {
 
 
 
+function handle_card_click(card_div, card_data) {
+    // Check if this exact card (both data + div) is already selected
+    const index = selected_cards.findIndex(sel => 
+        JSON.stringify(sel.data) === JSON.stringify(card_data) && sel.div === card_div
+    );
 
-    // Update the cards for the current round
-    // newCards is an array of strings, e.g. ["Card 1", "Card 2", ...]
+    if (index >= 0) {
+        // Already selected → unselect it
+        selected_cards.splice(index, 1);
+        card_div.classList.remove("selected");
+    } else {
+        // Add new selection if less than 2 selected
+        if (selected_cards.length < 2) {
+            selected_cards.push({ div: card_div, data: card_data });
+            card_div.classList.add("selected");
+        } else {
+            console.log("Cannot select more than 2 cards");
+            return;
+        }
+    }
+}
+
 function updateSingleRoundCards(newCards) {
     const roundCards = document.querySelectorAll('.card-container .card');
-
-    roundCards.forEach((cardElement, index) => {
-        const cardData = newCards[index];
-        if (cardData) {
+    roundCards.forEach((card, index) => {
+        if (newCards[index]) {
+            // Update card text
+                    if (cardData) {
             // Set the background image of the card element
             cardElement.style.backgroundImage = `url('${cardData.path}')`;
             cardElement.style.backgroundSize = 'cover';
@@ -75,9 +95,18 @@ function updateSingleRoundCards(newCards) {
             cardElement.style.backgroundImage = '';
             cardElement.title = '';
         }
+
+            // Remove all previous event listeners by cloning the node
+            const newCard = card.cloneNode(true);
+            card.parentNode.replaceChild(newCard, card);
+
+            // Add a new onclick listener
+            newCard.addEventListener('click', () => {
+                handle_card_click(newCard, newCards[index]);
+            });
+        }
     });
 }
-
 
     // Update the info panel stats
     // newStats is an object, e.g. {temperature: "+2°C", rainfall: "-10mm", humidity: "+5%", altitude: "N/A"}
@@ -97,17 +126,31 @@ function updateSingleRoundCards(newCards) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    function shuffle_cards()
+    {
+        let hand_cards = [];
+        for (let i = 0; i < 4; i++)
+        {
+            let index = Math.floor(Math.random() * 4);
+            hand_cards.push(allCards[index]);
+        }
+
+        updateSingleRoundCards(hand_cards);
+    }
+    
+    function next_round()
+    {
+        //TODO: handle what has happened at the last round and if the game is not over then start a new round by shuffeling the cards
+        shuffle_cards();
+    }
+
     function chooseCard(index) {
         console.log("Player chose card", index + 1);
         CROP_INDEX = index;
 
         // TODO: trigger your game logic here
         updateCropCard(crops[index].name);
-        
-        //start new round
-            //deal 4 random cards to the player
-            //
-
+        shuffle_cards();
         // Hide overlay after selection
         const overlay = document.getElementById('cardOverlay');
         overlay.style.display = 'none';
