@@ -1,0 +1,126 @@
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Fixed top-left info panel */
+  .info-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 250px;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  /* Fixed crop placeholder card, below info panel */
+  .crop-card {
+    position: fixed;
+    bottom: 150px;
+    left: 40px;
+    width: 200px;
+    height: 300px;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .crop-card:hover {
+    transform: translateY(-20px) scale(1.05);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.7);
+  }
+
+  /* Fixed bottom-center fanned cardards container */
+  .card-container {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px; 
+    align-items: flex-end;
+  }
+
+  /* Fanned cardards (smaller) */
+  .card {
+    width: 150px;   /* smaller than crop card */
+    height: 225px;  /* smaller than crop card */
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  /* Z-axis tilt for fanned look */
+  .card:nth-child(1) { transform: rotateZ(-15deg) translateY(15px); }
+  .card:nth-child(2) { transform: rotateZ(-5deg); }
+  .card:nth-child(3) { transform: rotateZ(5deg); }
+  .card:nth-child(4) { transform: rotateZ(15deg) translateY(15px); }
+
+  .card:hover {
+    transform: translateY(-30px) scale(1.1) rotateZ(0deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+ }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+
+  /* Modal window */
+  .modal {
+    background: #222;
+    padding: 30px;
+    border-radius: 16px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  }
+
+  /* Card buttons */
+  .modal .card-choice {
+    width: 150px;
+    height: 225px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .modal .card-choice:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.7);
+  }
