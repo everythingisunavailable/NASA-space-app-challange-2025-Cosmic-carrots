@@ -1,6 +1,6 @@
 let CROP_INDEX = 0;
 let VEGETATION_INDEX = 1;
-let PLACE_INDEX = 0;
+let AREA_INDEX = 0;
 
 function buildCropCards(crops) {
     // Create the overlay div
@@ -68,13 +68,82 @@ function capitalizeFirstLetter(string) {
 function chooseCard(index) {
     console.log("Player chose card", index + 1);
     CROP_INDEX = index;
+
     // TODO: trigger your game logic here
+    updateCropCard(crops[index].name);
+    // start round here 
 
     // Hide overlay after selection
     const overlay = document.getElementById('cardOverlay');
     overlay.style.display = 'none';
 }
 
-window.onload = ()=>{
+async function get_random_year_data() {
+    // Load the full climate dataset
+    const climateData = await loadClimateData();
+
+    // Ignore the last year in the dataset
+    const validYears = climateData.yearly_data.slice(0, -1);
+
+    // Pick a random year entry (excluding the last one)
+    const randomYearEntry = validYears[
+        Math.floor(Math.random() * validYears.length)
+    ];
+    const year = randomYearEntry.year;
+
+    // Pick a random month entry from that year
+    const randomMonthEntry = randomYearEntry.monthly_data[
+        Math.floor(Math.random() * randomYearEntry.monthly_data.length)
+    ];
+    const month = randomMonthEntry.month;
+
+    // Get detailed data using your existing helper function
+    const result = getDataByYearAndMonth(climateData, year, month);
+
+    // Debug/log
+    console.log(`🎲 Random pick (excluding last year): ${month} ${year}`);
+    console.log(result);
+
+    return result;
+}
+
+
+async function load_stats() {
+    const data = await get_random_year_data();
+    // Create the container div
+    const panel = document.createElement('div');
+    panel.classList.add('info-panel');
+
+    // Create the content
+    panel.innerHTML = `
+        <strong>Upcoming Stat Changes</strong>
+        <p>Temperature: ${data.average_temperature_celsius ?? "N/A"}°C</p>
+        <p>Rainfall: ${data.average_rainfall_mm ?? "N/A"} mm</p>
+        <p>Humidity: ${data.average_humidity_percent ?? "N/A"}%</p>
+        <p>Altitude: ${data.altitude_meters ?? "N/A"}</p>
+    `;
+
+    // Add to page — append or replace existing panel
+    const oldPanel = document.querySelector('.info-panel');
+    if (oldPanel) oldPanel.replaceWith(panel);
+    else document.body.appendChild(panel);
+}
+
+
+window.onload = async ()=>{
+    let params = new URLSearchParams(window.location.search);
+    if (!params.has("ndvi") || !params.has("area"))
+    {
+        console.log("There are search parameters missing!");
+        return;
+    }
+    let crop = parseFloat(params.get("ndvi"));
+    let area = parseInt(params.get("area"));
+    
+    CROP_INDEX = crop;
+    AREA_INDEX = area;
+    
+    console.log(crop, area);
     buildCropCards(crops);
+    await load_stats();
 };
