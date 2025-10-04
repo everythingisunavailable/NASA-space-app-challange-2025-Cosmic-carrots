@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive World Map</title>
+    <title>FarmGame</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -80,9 +80,11 @@
                 tooltipEl.style.color = 'white';
             });
 
-            // Click event
             marker.on('click', function () {
                 console.log(`Pin ${location.id} clicked: ${location.name}`);
+                if (location.id === 6) {
+                    window.location.href = './Oceania.html';
+                }
             });
         });
     </script>
