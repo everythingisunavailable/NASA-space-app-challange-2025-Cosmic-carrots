@@ -36,10 +36,22 @@ function buildCropCards(crops) {
 // Update the crop card text
 function updateCropCard(newCropName) {
     const cropCard = document.querySelector('.crop-card');
-    if (cropCard) {
-        cropCard.textContent = newCropName;
+    if (!cropCard) return;
+
+    // find matching crop (case-insensitive) from available crops
+    const list = (typeof window !== 'undefined' && Array.isArray(window.crops)) ? window.crops : (Array.isArray(crops) ? crops : []);
+    const match = list.find(c => c && c.name && c.name.toLowerCase() === String(newCropName).toLowerCase());
+    // set or clear background
+    if (match && match.image) {
+        cropCard.style.backgroundImage = `url('${match.image}')`;
+        cropCard.style.backgroundSize = 'cover';
+        cropCard.style.backgroundPosition = 'center';
+        cropCard.style.backgroundRepeat = 'no-repeat';
+    } else {
+        cropCard.style.backgroundImage = '';
     }
 }
+
 
 // Update the cards for the current round
 // newCards is an array of strings, e.g. ["Card 1", "Card 2", ...]
