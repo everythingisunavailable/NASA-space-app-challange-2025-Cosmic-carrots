@@ -77,24 +77,24 @@ function handle_card_click(card_div, card_data) {
             return;
         }
     }
-}
+}   
 
 function updateSingleRoundCards(newCards) {
     const roundCards = document.querySelectorAll('.card-container .card');
     roundCards.forEach((card, index) => {
         if (newCards[index]) {
-            // Update card text
-                    if (cardData) {
-            // Set the background image of the card element
-            cardElement.style.backgroundImage = `url('${cardData.path}')`;
-            cardElement.style.backgroundSize = 'cover';
-            cardElement.style.backgroundPosition = 'center';
-            
-            cardElement.title = cardData.name;
-        } else {
-            cardElement.style.backgroundImage = '';
-            cardElement.title = '';
-        }
+
+            if (card) {
+                // Set the background image of the card element
+                card.style.backgroundImage = `url('${newCards[index].path}')`;
+                card.style.backgroundSize = 'cover';
+                card.style.backgroundPosition = 'center';
+                
+                card.title = card.name;
+            } else {
+                card.style.backgroundImage = '';
+                card.title = '';
+            }
 
             // Remove all previous event listeners by cloning the node
             const newCard = card.cloneNode(true);
