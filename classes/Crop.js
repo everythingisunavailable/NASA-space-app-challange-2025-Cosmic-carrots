@@ -5,7 +5,7 @@ class Crop {
         this.rainfallRange = rainfallRange; // [minIdeal, maxIdeal, minTolerance, maxTolerance]
         this.humidityRange = humidityRange; // [minIdeal, maxIdeal, minTolerance, maxTolerance]
         this.altitudeRange = altitudeRange; // [minIdeal, maxIdeal, minTolerance, maxTolerance]
-        this.growthSpeed = growthSpeed;
+        this.growthSpeed = growthSpeed;     // duration in months
     }
 
     // Check if a given environment is within ideal range
