@@ -27,22 +27,22 @@
          modal.appendChild(card);
     });
 
-        // Append modal to overlay
         overlay.appendChild(modal);
 
-        // Append overlay to body
         document.body.appendChild(overlay);
     }
 
+
+
+
+    
 // Update the crop card text
 function updateCropCard(newCropName) {
     const cropCard = document.querySelector('.crop-card');
     if (!cropCard) return;
 
-    // find matching crop (case-insensitive) from available crops
     const list = (typeof window !== 'undefined' && Array.isArray(window.crops)) ? window.crops : (Array.isArray(crops) ? crops : []);
     const match = list.find(c => c && c.name && c.name.toLowerCase() === String(newCropName).toLowerCase());
-    // set or clear background
     if (match && match.image) {
         cropCard.style.backgroundImage = `url('${match.image}')`;
         cropCard.style.backgroundSize = 'cover';
@@ -54,16 +54,30 @@ function updateCropCard(newCropName) {
 }
 
 
+
+
+
     // Update the cards for the current round
     // newCards is an array of strings, e.g. ["Card 1", "Card 2", ...]
-    function updateSingleRoundCards(newCards) {
-        const roundCards = document.querySelectorAll('.card-container .card');
-        roundCards.forEach((card, index) => {
-            if (newCards[index]) {
-                card.textContent = newCards[index];
-            }
-        });
-    }
+function updateSingleRoundCards(newCards) {
+    const roundCards = document.querySelectorAll('.card-container .card');
+
+    roundCards.forEach((cardElement, index) => {
+        const cardData = newCards[index];
+        if (cardData) {
+            // Set the background image of the card element
+            cardElement.style.backgroundImage = `url('${cardData.path}')`;
+            cardElement.style.backgroundSize = 'cover';
+            cardElement.style.backgroundPosition = 'center';
+            
+            cardElement.title = cardData.name;
+        } else {
+            cardElement.style.backgroundImage = '';
+            cardElement.title = '';
+        }
+    });
+}
+
 
     // Update the info panel stats
     // newStats is an object, e.g. {temperature: "+2°C", rainfall: "-10mm", humidity: "+5%", altitude: "N/A"}
@@ -168,3 +182,7 @@ function updateCropCard(newCropName) {
         buildCropCards(crops);
         await load_stats();
     };
+
+    document.addEventListener('DOMContentLoaded', () => {
+    updateSingleRoundCards(allCards);
+});

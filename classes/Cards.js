@@ -1,10 +1,11 @@
 class Card {
-    constructor(name, options = {}) {
+    constructor(name, options = {}, path="") {
         this.name = name;       // Card name
         this.addRain = options.addRain || 0;            // +mm rainfall
         this.tempBuffer = options.tempBuffer || 0;      // +°C / -°C
         this.flatGrowthPercent = options.flatGrowthPercent || 0; // +% growth
         this.oneTime = options.oneTime ?? true;         // used once per round
+        this.path=path;                      // background cards
     }
 
     apply(cropState, monthlyStats) {
@@ -13,3 +14,6 @@ class Card {
         if (this.flatGrowthPercent) cropState.growth += cropState.growth * (this.flatGrowthPercent / 100);
     }
 }
+
+
+
