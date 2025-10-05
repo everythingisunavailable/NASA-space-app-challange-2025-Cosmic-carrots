@@ -62,7 +62,7 @@ function endGame(message) {
         btn.style.background = '#37b24d';
     });
     btn.addEventListener('click', () => {
-        window.location.href = 'index.html';
+        window.location.href = 'feedback.html';
     });
 
     // Append to overlay and body
