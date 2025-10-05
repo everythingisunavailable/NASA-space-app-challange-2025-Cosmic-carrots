@@ -2,6 +2,75 @@
     let VEGETATION_INDEX = 1;
     let AREA_INDEX = 0;
     let selected_cards = [];
+    let CROP_STATE = {};
+    let STATS;
+    let GAME_STATE = {
+        gameOver: false,         // true if the crop has failed
+        monthsWithLowGrowth: 0   // counter for consecutive months of insufficient growth
+    };
+
+function setGrowthProgress(percentage) {
+    const bar = document.getElementById('growthProgressBar');
+    if (!bar) return;
+    console.log("percentege :", percentage);
+    bar.style.height = percentage + '%';
+}
+
+function endGame(message) {
+    // Create overlay background
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    overlay.style.backdropFilter = 'blur(8px)';
+    overlay.style.background = 'rgba(0, 0, 0, 0.7)';
+    overlay.style.zIndex = '9999';
+    overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'column';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.color = 'white';
+    overlay.style.fontFamily = "'ITC Benguiat', serif";
+    overlay.style.textAlign = 'center';
+    overlay.style.padding = '30px';
+
+    // Create message
+    const msg = document.createElement('h2');
+    msg.textContent = message;
+    msg.style.fontSize = '2rem';
+    msg.style.marginBottom = '30px';
+    msg.style.textShadow = '0 0 10px rgba(255,255,255,0.5)';
+
+    // Create "New Game" button
+    const btn = document.createElement('button');
+    btn.textContent = '🌾 Start New Game';
+    btn.style.background = '#37b24d';
+    btn.style.color = 'white';
+    btn.style.fontWeight = 'bold';
+    btn.style.fontSize = '1.2rem';
+    btn.style.padding = '14px 28px';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '12px';
+    btn.style.cursor = 'pointer';
+    btn.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.4)';
+    btn.style.transition = 'transform 0.2s, background 0.3s';
+
+    btn.addEventListener('mouseover', () => {
+        btn.style.transform = 'translateY(-4px)';
+        btn.style.background = '#4cd964';
+    });
+    btn.addEventListener('mouseout', () => {
+        btn.style.transform = 'translateY(0)';
+        btn.style.background = '#37b24d';
+    });
+    btn.addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+
+    // Append to overlay and body
+    overlay.appendChild(msg);
+    overlay.appendChild(btn);
+    document.body.appendChild(overlay);
+}
+
 
 function buildCropCards(crops) {
     const overlay = document.createElement('div');
@@ -10,8 +79,6 @@ function buildCropCards(crops) {
 
     const container = document.createElement('div');
     container.className = 'crop-container';
-
-
 
     const title = document.createElement('div');
     title.className = 'crop-title';
@@ -53,7 +120,6 @@ title.style.textShadow = '2px 2px 4px rgba(243, 236, 236, 0.5)'
 
         card.addEventListener('click', () => {
             chooseCard(index); // existing logic
-            setupScenario(crop.name); // ✅ show scenario text
         });
 
         modal.appendChild(card);
@@ -63,12 +129,6 @@ title.style.textShadow = '2px 2px 4px rgba(243, 236, 236, 0.5)'
     overlay.appendChild(container);
     document.body.appendChild(overlay);
 }
-
-
-
-
-
-
     
 // Update the crop card text
 function updateCropCard(newCropName) {
@@ -86,9 +146,6 @@ function updateCropCard(newCropName) {
         cropCard.style.backgroundImage = '';
     }
 }
-
-
-
 
 function handle_card_click(card_div, card_data) {
     // Check if this exact card (both data + div) is already selected
@@ -141,18 +198,29 @@ function updateSingleRoundCards(newCards) {
     });
 }
 
-    // Update the info panel stats
-    // newStats is an object, e.g. {temperature: "+2°C", rainfall: "-10mm", humidity: "+5%", altitude: "N/A"}
-    function updateInfoPanel(newStats) {
-        const infoPanel = document.getElementById('infoPanel');
-        if (infoPanel) {
-            let html = "<strong>Upcoming Stat Changes</strong>";
-            for (const [key, value] of Object.entries(newStats)) {
-                html += `<p>${capitalizeFirstLetter(key)}: ${value}</p>`;
-            }
-            infoPanel.innerHTML = html;
-        }
-    }
+function updateInfoPanel(data) {
+    // Create the container div
+    const panel = document.createElement('div');
+    panel.classList.add('info-panel');
+    panel.id = 'infoPanel';
+
+    // Create the content
+    panel.innerHTML = `
+        <strong>Upcoming Stat Changes</strong>
+        <p>Temperature: ${data.average_temperature_celsius ?? "N/A"}°C</p>
+        <p>Rainfall: ${data.average_rainfall_mm ?? "N/A"} mm</p>
+        <p>Humidity: ${data.average_humidity_percent ?? "N/A"}%</p>
+        <p>Altitude: ${data.altitude_meters ?? "N/A"}</p>
+    `;
+
+    // Add to page — append or replace existing panel
+    const oldPanel = document.querySelector('.info-panel');
+    if (oldPanel) oldPanel.replaceWith(panel);
+    else document.body.appendChild(panel);
+
+    console.log("Info panel updated");
+}
+
 
     // Helper function to capitalize the first letter
     function capitalizeFirstLetter(string) {
@@ -171,22 +239,164 @@ function updateSingleRoundCards(newCards) {
         updateSingleRoundCards(hand_cards);
     }
 
-    function next_round()
+function evaluateCropGrowth(crop, monthlyStats, gameState) {
+    // Use the global CROP_STATE
+    const checks = [
+        { stat: monthlyStats.average_temperature_celsius, range: crop.tempRange },
+        { stat: monthlyStats.average_rainfall_mm, range: crop.rainfallRange },
+        { stat: monthlyStats.average_humidity_percent, range: crop.humidityRange },
+        { stat: monthlyStats.altitude_meters, range: crop.altitudeRange }
+    ];
+
+    let totalFactor = 0;
+
+    for (const { stat, range } of checks) {
+        const [minIdeal, maxIdeal, minTol, maxTol] = range;
+        let factor = 0;
+
+        if (stat >= minIdeal && stat <= maxIdeal) {
+            factor = 1;
+        } else if (stat >= minTol && stat < minIdeal) {
+            factor = 0.5 + 0.5 * (stat - minTol) / (minIdeal - minTol);
+        } else if (stat > maxIdeal && stat <= maxTol) {
+            factor = 0.5 + 0.5 * (maxTol - stat) / (maxTol - maxIdeal);
+        } else {
+            factor = 0.2;
+        }
+
+        totalFactor += factor;
+    }
+
+    const avgFactor = totalFactor / checks.length;
+
+    // Apply VEGETATION_INDEX as a growth multiplier (example: 1 for normal, 0.8 for slower)
+    const vegetationMultiplier = VEGETATION_INDEX === 0 ? 1 : 0.8;
+
+    const growthThisRound = CROP_STATE.growth_percentage * avgFactor * vegetationMultiplier;
+
+    CROP_STATE.growth += growthThisRound;
+    if (CROP_STATE.growth > 100) CROP_STATE.growth = 100;
+    if (CROP_STATE.growth < 0) CROP_STATE.growth = 0;
+
+    // Update the progress bar
+    setGrowthProgress(CROP_STATE.growth);
+
+    console.log(`🌱 ${crop.name} total growth: ${CROP_STATE.growth.toFixed(2)}%`);
+
+    // Check win condition
+    if (CROP_STATE.growth >= 100 && !CROP_STATE.fullyGrown) {
+        CROP_STATE.fullyGrown = true;
+        console.log(`✅ ${crop.name} is fully grown!`);
+        endGame(`${crop.name} has fully grown!`);
+    }
+
+    // Check lose condition
+    const minGrowthThreshold = CROP_STATE.growth_percentage * 0.5;
+    if (growthThisRound < minGrowthThreshold) {
+        if (!gameState.monthsWithLowGrowth) gameState.monthsWithLowGrowth = 0;
+        gameState.monthsWithLowGrowth++;
+        if (gameState.monthsWithLowGrowth >= 3 && !gameState.gameOver) {
+            gameState.gameOver = true;
+            console.log(`⛔ Crop failed to grow properly. Game over!`);
+            endGame(`${crop.name} has Died`);
+        }
+    } else {
+        if (gameState.monthsWithLowGrowth) gameState.monthsWithLowGrowth = 0;
+    }
+}
+
+
+
+
+    function resetCardSelection() {
+        // Remove "selected" class from all currently selected card divs
+        selected_cards.forEach(sel => {
+            if (sel.div) sel.div.classList.remove("selected");
+        });
+
+        // Clear the array
+        selected_cards = [];
+    }
+
+const MONTH_NAMES = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
+
+async function getNextMonthData() {
+    if (!STATS) {
+        console.error("No current stats available");
+        return null;
+    }
+
+    const climateData = await loadClimateData();
+
+    // Current year and month
+    let currentYear = STATS.year;
+    let currentMonthNumber = STATS.month_number; // 1–12
+
+    // Increment month
+    let nextMonthNumber = currentMonthNumber + 1;
+    let nextYear = currentYear;
+
+    if (nextMonthNumber > 12) {
+        nextMonthNumber = 1;
+        nextYear += 1;
+    }
+
+    const nextMonthName = MONTH_NAMES[nextMonthNumber - 1]; // Convert number to name
+
+    // Check if nextYear exists in the dataset
+    const yearData = climateData.yearly_data.find(y => y.year === nextYear);
+    if (!yearData) {
+        console.warn("Next year data not available, looping back to first year");
+        nextYear = climateData.yearly_data[0].year;
+    }
+
+    // Fetch next month by name
+    const monthData = getDataByYearAndMonth(climateData, nextYear, nextMonthName);
+    if (!monthData) {
+        console.warn("Next month data not found, using current month stats");
+        return STATS;
+    }
+
+    // Update global STATS
+    STATS = monthData;
+    updateInfoPanel(STATS);
+}
+
+
+    async function next_round()
     {
-        //TODO: handle what has happened at the last round and if the game is not over then start a new round by shuffling 
-            //example take the selected cards effects and add them to the effects of the environment
-            //after this reset the selected cards array and dom
-            //see what do the effects 
+        if (selected_cards.length < 1){
+            alert("Please pick at least one card!");
+            return;
+        }
+
+        selected_cards.forEach(card => {
+            card.data.apply(STATS);
+        });
+        evaluateCropGrowth(crops[CROP_INDEX], STATS, GAME_STATE);
+        resetCardSelection();
+
+        await getNextMonthData();
+
         shuffle_cards();
+    }
+
+    function init_crop_state(crop)
+    {
+        CROP_STATE = new Crop_state(crop);
     }
 
     function chooseCard(index) {
         console.log("Player chose card", index + 1);
         CROP_INDEX = index;
 
-        // TODO: trigger your game logic here
         updateCropCard(crops[index].name);
         shuffle_cards();
+        init_crop_state(crops[index]);
+        
         // Hide overlay after selection
         const overlay = document.getElementById('cardOverlay');
         overlay.style.display = 'none';
@@ -214,35 +424,16 @@ function updateSingleRoundCards(newCards) {
         // Get detailed data using your existing helper function
         const result = getDataByYearAndMonth(climateData, year, month);
 
-        // Debug/log
-        console.log(`🎲 Random pick (excluding last year): ${month} ${year}`);
-        console.log(result);
-
         return result;
     }
 
 
     async function load_stats() {
         const data = await get_random_year_data();
-        // Create the container div
-        const panel = document.createElement('div');
-        panel.classList.add('info-panel');
-
-        // Create the content
-        panel.innerHTML = `
-            <strong>Upcoming Stat Changes</strong>
-            <p>Temperature: ${data.average_temperature_celsius ?? "N/A"}°C</p>
-            <p>Rainfall: ${data.average_rainfall_mm ?? "N/A"} mm</p>
-            <p>Humidity: ${data.average_humidity_percent ?? "N/A"}%</p>
-            <p>Altitude: ${data.altitude_meters ?? "N/A"}</p>
-        `;
-
-        // Add to page — append or replace existing panel
-        const oldPanel = document.querySelector('.info-panel');
-        if (oldPanel) oldPanel.replaceWith(panel);
-        else document.body.appendChild(panel);
+        //pass them globally like a moron
+        STATS = data;
+        updateInfoPanel(data);
     }
-
 
     window.onload = async ()=>{
         let params = new URLSearchParams(window.location.search);
@@ -251,13 +442,12 @@ function updateSingleRoundCards(newCards) {
             console.log("There are search parameters missing!");
             return;
         }
-        let crop = parseFloat(params.get("ndvi"));
+        let index = parseFloat(params.get("ndvi"));
         let area = parseInt(params.get("area"));
         
-        CROP_INDEX = crop;
+        CROP_INDEX = index;
         AREA_INDEX = area;
         
-        console.log(crop, area);
         buildCropCards(crops);
         await load_stats();
     };
