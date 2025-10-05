@@ -23,7 +23,7 @@ function getDataByYearAndMonth(data, year, month) {
 }
 
 
-async function loadClimateData(filePath = 'assets/Qeen_2020-2024.json') {
+async function loadClimateData(filePath = './Qeen_2020-2024.json') {
     const response = await fetch(filePath);
     const data = await response.json();
     return data;

@@ -6,7 +6,7 @@ const crops = [
         [50, 70, 40, 80],        // humidityRange %
         [100, 500, 0, 1000],     // altitudeRange m
         4,                       // growthSpeed in months
-        '../assets/carrot.png'
+        './carrot.png'
     ),
     new Crop(
         "Pineapple",
@@ -15,7 +15,7 @@ const crops = [
         [60, 70, 50, 80],        // humidity %
         [0, 1000, 0, 1200],      // altitude m
         18,                      // growthSpeed in months
-        "../assets/pineapple.png"
+        "./pineapple.png"
     ),
     new Crop(
         "Strawberry",
@@ -24,7 +24,7 @@ const crops = [
         [60, 80, 50, 85],        // humidity %
         [0, 1500, 0, 1500],      // altitude m
         5,                       // growthSpeed in months
-        "../assets/strawberry.png"
+        "./strawberry.png"
     ),
     new Crop(
         "Sweet Corn",
@@ -33,6 +33,6 @@ const crops = [
         [60, 80, 50, 90],        // humidity %
         [0, 1200, 0, 1200],      // altitude m
         4,                       // growthSpeed in months
-        "../assets/corn.png"
+        "./corn.png"
     )
 ];
