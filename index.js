@@ -24,44 +24,48 @@
         ];
 
 
-        function createCustomIcon(number) {
-            return L.divIcon({
-                className: 'custom-div-icon',
-                html: `<div class="custom-pin"><span class="custom-pin-number">${number}</span></div>`,
-                iconSize: [48, 60],
-                iconAnchor: [24, 60],
-                popupAnchor: [0, -60]
-            });
-        }
+       function createCustomIcon(number) {
+    return L.divIcon({
+        className: 'custom-div-icon',
+        html: `<div class="custom-pin" ${number === 6 ? 'id="pin6"' : ''}>
+                  <span class="custom-pin-number">${number}</span>
+               </div>`,
+        iconSize: [48, 60],
+        iconAnchor: [24, 60],
+        popupAnchor: [0, -60]
+    });
+}
 
-        // Add markers
-        locations.forEach(location => {
-            const marker = L.marker(location.coords, {
-                icon: createCustomIcon(location.id)
-            }).addTo(map);
+// Add markers
+locations.forEach(location => {
+    const marker = L.marker(location.coords, {
+        icon: createCustomIcon(location.id)
+    }).addTo(map);
 
-            marker.bindTooltip(location.name, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -60],
-                opacity: 1
-            });
+    marker.bindTooltip(location.name, {
+        permanent: false,
+        direction: 'top',
+        offset: [0, -60],
+        opacity: 1
+    });
 
-            // Tooltip hover color change
-            marker.on('mouseover', function (e) {
-                const tooltipEl = e.target.getTooltip().getElement();
-                tooltipEl.style.color = 'black';
-            });
-
-            marker.on('mouseout', function (e) {
-                const tooltipEl = e.target.getTooltip().getElement();
-                tooltipEl.style.color = 'white';
-            });
-
-            marker.on('click', function () {
-                console.log(`Pin ${location.id} clicked: ${location.name}`);
-                if (location.id === 6) {
-                    window.location.href = './Oceania.html';
-                }
-            });
+    // Only pin 6 tooltip changes color on hover
+    if (location.id === 6) {
+        marker.on('mouseover', function (e) {
+            const tooltipEl = e.target.getTooltip().getElement();
+            tooltipEl.style.color = 'black';
         });
+
+        marker.on('mouseout', function (e) {
+            const tooltipEl = e.target.getTooltip().getElement();
+            tooltipEl.style.color = 'white';
+        });
+    }
+
+    marker.on('click', function () {
+        console.log(`Pin ${location.id} clicked: ${location.name}`);
+        if (location.id === 6) {
+            window.location.href = './Oceania.html';
+        }
+    });
+});

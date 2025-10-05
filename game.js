@@ -62,10 +62,9 @@ function endGame(message) {
         btn.style.background = '#37b24d';
     });
     btn.addEventListener('click', () => {
-        window.location.href = 'feedback.html';
+        window.location.href = 'index.html';
     });
 
-    // Append to overlay and body
     overlay.appendChild(msg);
     overlay.appendChild(btn);
     document.body.appendChild(overlay);
