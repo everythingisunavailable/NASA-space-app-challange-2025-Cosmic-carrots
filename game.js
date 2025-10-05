@@ -11,24 +11,46 @@ function buildCropCards(crops) {
     const container = document.createElement('div');
     container.className = 'crop-container';
 
+
+
     const title = document.createElement('div');
     title.className = 'crop-title';
     title.textContent = 'Pick a Crop to Grow';
     container.appendChild(title);
 
+    title.dataset.color = '#905328ff'; 
+    title.dataset.size  = '50px';   
+
+// Apply them as style
+title.style.color = title.dataset.color;
+title.style.fontSize = title.dataset.size;
+title.style.textShadow = '2px 2px 4px rgba(243, 236, 236, 0.5)'
+
     const modal = document.createElement('div');
     modal.className = 'modal';
+
+        const farmBrown = '#905328ff';
+    modal.style.backgroundColor = farmBrown;
+    modal.style.borderRadius = '12px';
+    modal.style.padding = '20px';
+
 
     crops.forEach((crop, index) => {
         const card = document.createElement('div');
         card.className = 'card-choice';
-        card.dataset.name = crop.name; // ✅ important
+        card.dataset.name = crop.name; 
         card.style.backgroundImage = `url('${crop.image}')`;
         card.style.backgroundSize = 'cover';
         card.style.backgroundPosition = 'center';
         card.style.backgroundRepeat = 'no-repeat';
 
-        // click handler
+            card.style.width = '200px';  // was ~180px
+    card.style.height = '280px'; // was ~240px
+    card.style.borderRadius = '12px';
+    card.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+    card.style.cursor = 'pointer';
+
+
         card.addEventListener('click', () => {
             chooseCard(index); // existing logic
             setupScenario(crop.name); // ✅ show scenario text
