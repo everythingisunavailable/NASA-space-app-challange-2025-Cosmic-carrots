@@ -374,3 +374,29 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
 }
+
+/* Vertical progress bar container (right side, centered vertically) */
+#growthProgressContainer {
+    position: fixed;
+    top: 50%; /* center vertically */
+    right: 20px; /* spacing from right */
+    transform: translateY(-50%); /* vertical centering */
+    width: 50px; /* thicker bar */
+    height: 400px; /* taller bar */
+    background-color: #ddd; /* background of bar */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    overflow: hidden;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse; /* fill from bottom to top */
+}
+
+/* Inner filling bar */
+#growthProgressBar {
+    width: 100%;
+    height: 0%; /* initial fill */
+    background-color: #28a745; /* green fill */
+    transition: height 0.5s ease;
+    border-radius: 16px 16px 0 0;
+}

@@ -8,12 +8,14 @@ class Card {
         this.path=path;                      // background cards
     }
 
-    apply(cropState, monthlyStats) {
-        if (this.addRain) monthlyStats.Rainfall += this.addRain;
-        if (this.tempBuffer) monthlyStats.Temperature += this.tempBuffer;
-        if (this.flatGrowthPercent) cropState.growth += cropState.growth * (this.flatGrowthPercent / 100);
+    apply(monthlyStats) {
+        if (monthlyStats.rainfall !== undefined)
+            monthlyStats.rainfall += this.addRain;
+
+        if (monthlyStats.temperature !== undefined)
+            monthlyStats.temperature += this.tempBuffer;
+
+        if (monthlyStats.growth !== undefined)
+            monthlyStats.growth += this.flatGrowthPercent;
     }
 }
-
-
-
