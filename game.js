@@ -3,35 +3,46 @@
     let AREA_INDEX = 0;
     let selected_cards = [];
 
-    function buildCropCards(crops) {
-        // Create the overlay div
-        const overlay = document.createElement('div');
-        overlay.className = 'overlay';
-        overlay.id = 'cardOverlay';
+function buildCropCards(crops) {
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    overlay.id = 'cardOverlay';
 
-        
-        // Create the modal div
-        const modal = document.createElement('div');
-        modal.className = 'modal';
+    const container = document.createElement('div');
+    container.className = 'crop-container';
 
-    // Loop through crops and create a card for each
+    const title = document.createElement('div');
+    title.className = 'crop-title';
+    title.textContent = 'Pick a Crop to Grow';
+    container.appendChild(title);
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+
     crops.forEach((crop, index) => {
         const card = document.createElement('div');
         card.className = 'card-choice';
-        card.setAttribute('onclick', `chooseCard(${index})`); 
-        
+        card.dataset.name = crop.name; // ✅ important
         card.style.backgroundImage = `url('${crop.image}')`;
-        card.style.backgroundSize = 'cover';       
-        card.style.backgroundPosition = 'center';  
+        card.style.backgroundSize = 'cover';
+        card.style.backgroundPosition = 'center';
         card.style.backgroundRepeat = 'no-repeat';
-        
-         modal.appendChild(card);
+
+        // click handler
+        card.addEventListener('click', () => {
+            chooseCard(index); // existing logic
+            setupScenario(crop.name); // ✅ show scenario text
+        });
+
+        modal.appendChild(card);
     });
 
-        overlay.appendChild(modal);
+    container.appendChild(modal);
+    overlay.appendChild(container);
+    document.body.appendChild(overlay);
+}
 
-        document.body.appendChild(overlay);
-    }
+
 
 
 
